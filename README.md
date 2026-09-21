@@ -6,6 +6,10 @@
 
 🔴Community support ONLY 🔴 https://www.facebook.com/groups/rusEfi 🔴 [Discord](https://github.com/rusefi/rusefi/wiki/Discord)🔴
 
+## Dual AMPSEAL 35 harness (fork)
+
+This fork replaces the Mini-Fit Jr vehicle connectors with two TE AMPSEAL 35-pin headers (J30 and J31, 776163-1 family). See [docs/ampseal-35-pinout.md](docs/ampseal-35-pinout.md). The footprint hole chart is unverified against the current TE drawing, and the PCB is not re-routed.
+
 ## Technical Details
 
 Open Source KiCAD 7 hardware powered by [Hellen-One](https://github.com/andreika-git/hellen-one)
