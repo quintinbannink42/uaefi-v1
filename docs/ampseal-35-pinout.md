@@ -136,6 +136,6 @@ Not moved onto the 70-pin loom (they were not Mini-Fit harness connectors):
 ## Hellen-One / mechanical constraints
 
 - Hellen-One modules (MCU, power, ign, inputs, WBO, VR, CAN, knock) are closed symbols. This change does not open them. Nets stop at the existing module pins.
-- The rev E outline is 100 mm × 100 mm (roughly x 50–150, y 60–160). A 35-pin AMPSEAL header is about 77 mm long and the right-angle body is about 36 mm deep, so **both headers cannot sit on the old connector sites**. J30 is placed along the bottom edge (body off the board, pins inside). J31 is placed on the right edge, rotated. This will collide with existing parts and the outline. It is placement for net assignment, not a finished mechanical layout.
-- No ratsnest cleanup and no new pours. Old Mini-Fit copper is orphaned.
+- Mechanical placement is in [ampseal-35-mechanical.md](ampseal-35-mechanical.md). The rev E 100 × 100 mm outline gained a bottom tab (J30) and a right tab (J31). Header bodies hang off those edges. Pin assignment is unchanged.
+- Segments that ended on the old Mini-Fit pads were removed. Nets are not routed to the new headers; see [ampseal-35-unrouted.md](ampseal-35-unrouted.md).
 - Firmware pin names are unchanged.
