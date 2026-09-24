@@ -1,11 +1,13 @@
 # Header copper
 
-KiCad 8.0.9 refilled the GND zone to the full 100 × 136 mm outline (y 42–178). New tracks were added only where a path stayed clear of other nets. DRC reports **no shorts** and **no crossing tracks**.
+The board was widened on the right (x 150 → 158 mm) so harness nets could leave the Hellen-One modules on inner layers and in that side channel. KiCad 8 DRC reports **no shorts** and **no crossing tracks**. Every J30/J31 signal pad has a track on its net. Spare pins 34 and 35 on J30 and pin 35 on J31 are still spare.
 
-These header pads still have no copper connection. A path that meets the 0.15 mm clearance through the Hellen-One modules was not found, so they were left open instead of jumped across other copper:
+These required nets are one ratsnest island (header pad reaches the existing onboard copper):
 
-J30: pin 12 `OUT_INJ6`, pin 15 `OUT_IGN3`, pin 16 `OUT_IGN4`, pin 17 `OUT_IGN5`, pin 18 `OUT_IGN6`, pin 20 `OUT_LS2`, pin 21 `OUT_LS3`, pin 22 `OUT_LS4`, pin 23 `OUT_LS_HOT1`, pin 25 `OUT_DC1+`, pin 26 `OUT_DC1-`, pin 27 `OUT_DC2+`, pin 29 `WBO_Heater`, pin 30 `WBO_Ip`, pin 31 `WBO_Un`, pin 32 `WBO_Vm`, pin 33 `WBO_Rtrim`.
+`OUT_INJ6`, `OUT_IGN6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `WBO_Heater`, `WBO_Vm`, `VR_DISCRETE-`, `EGT+`, `EGT-`.
 
-J31: pin 16 `IN_IAT`, pin 18 `IN_FLEX`, pin 19 `IN_KNOCK_RAW`, pin 24 `IN_BUTTON2`, pin 26 `IN_HALL1`, pin 27 `IN_HALL2`, pin 28 `IN_HALL3`, pin 29 `VR_MAX9924+`, pin 30 `VR_MAX9924-`, pin 31 `VR_DISCRETE+`, pin 32 `VR_DISCRETE-`, pin 33 `EGT+`, pin 34 `EGT-`.
+These required nets still have a single ratsnest break between the new track and an older pad or track of the same net. The header pad is not an open pin; the break is further along the net:
 
-Spare pins 34 and 35 on J30 and pin 35 on J31 stay unconnected on purpose. The six nets called out earlier (`OUT_INJ6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `EGT+`, `EGT-`) are in this open list. They no longer use a direct B.Cu jump.
+`OUT_IGN3`, `OUT_IGN4`, `OUT_IGN5`, `OUT_LS2`, `OUT_LS3`, `OUT_LS4`, `OUT_LS_HOT1`, `WBO_Ip`, `WBO_Un`, `WBO_Rtrim`, `IN_IAT`, `IN_FLEX`, `IN_KNOCK_RAW`, `IN_BUTTON2`, `IN_HALL1`, `IN_HALL2`, `IN_HALL3`, `VR_MAX9924+`, `VR_MAX9924-`, `VR_DISCRETE+`.
+
+Tracks that shorted or crossed were removed rather than left in. Q7–Q12 stay off the board.

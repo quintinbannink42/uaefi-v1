@@ -1,12 +1,12 @@
 # Ordering this uaEFI AMPSEAL fork
 
-Smart-coil ignition only. Two AMPSEAL 35 headers on a 100 × 136 mm rounded rectangle.
+Smart-coil ignition only. Two AMPSEAL 35 headers on a 108 × 136 mm rounded rectangle.
 
 ## Board
 
 | Item | Value |
 | --- | --- |
-| Outline | x 50–150 mm, y 42–178 mm (100 × 136 mm), 3.5 mm corner radius |
+| Outline | x 50–158 mm, y 42–178 mm (108 × 136 mm), 3.5 mm corner radius. The right 8 mm is a routing channel added so harness nets can pass the Hellen-One modules. |
 | Stackup | 4 copper layers, 1.6 mm (see the board setup in `uaefi.kicad_pcb`) |
 | Headers | Two TE **776163-1** (35 pos, right angle, key 1, tin). Gold option is 1-776163-1. |
 | Plugs | Two TE **776164-1** housings, terminals 770520 (reel) or 770854 (loose) |
@@ -41,9 +41,9 @@ Generated with KiCad 8.0.9 (`kicad-cli`). Files are in `fab/`:
 | `uaefi-pos.csv` | Pick-and-place (mm, CSV). Q7–Q12 are not on the board. |
 | `uaefi-job.gbrjob` | Gerber job file |
 
-JLCPCB / PCBWay upload: zip `fab/` and load the Gerbers plus both drill files. Set 4 layers, 1.6 mm, the stackup order F / In1 / In2 / B. Confirm the outline is 100 × 136 mm before paying.
+JLCPCB / PCBWay upload: zip `fab/` and load the Gerbers plus both drill files. Set 4 layers, 1.6 mm, the stackup order F / In1 / In2 / B. Confirm the outline is 108 × 136 mm before paying.
 
-The GND zone was refilled in KiCad 8. Its filled bounding box is the full outline (100 × 136 mm, y 42–178).
+The GND zone was refilled in KiCad 8 over the widened outline.
 
 ## DRC (KiCad 8.0.9, errors only)
 
@@ -51,14 +51,17 @@ The GND zone was refilled in KiCad 8. Its filled bounding box is the full outlin
 | --- | --- |
 | Shorts | 0 |
 | Tracks crossing | 0 |
-| Clearance | 103 |
-| Copper edge clearance | 37 |
-| Hole clearance | 20 |
-| Solder-mask bridge | 19 |
-| Items in keepout | 8 |
-| Unconnected items | 101 |
+| Clearance | 286 |
+| Copper edge clearance | 50 |
+| Hole clearance | 11 |
+| Hole-to-hole | 41 |
+| Solder-mask bridge | 22 |
+| Items in the Bluetooth keepout | 186 |
+| Unconnected items | 61 |
 
-The straight jumps that shorted `OUT_INJ6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `EGT+`, and `EGT-` were removed. A clearance-safe path through the Hellen-One modules does not exist for those nets, or for the other header pins listed in [ampseal-35-unrouted.md](ampseal-35-unrouted.md). They are open, not shorted. The remaining clearance, edge, hole, and mask errors are the same class as the stock race-core board (zone and silk/hole geometry). They are not a new short between AMPSEAL nets.
+Header signal pads all have copper on their net. Ten required nets are one ratsnest island, including `OUT_INJ6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `EGT+`, and `EGT-`. Twenty required nets still have one break further along the net; see [ampseal-35-unrouted.md](ampseal-35-unrouted.md). The Bluetooth keepout violations are the new right-edge channel running beside the Bluetooth module. Clearance, edge, hole, and mask counts are the stock race-core class plus that channel.
+
+The board is not electrically complete for every harness net until those twenty breaks are closed. Do not treat it as ready to order a driving ECU until that list is empty.
 
 AMPSEAL hole-chart graphic on TE drawing 776163 sheet 2 is still not re-measured. Confirm it before a production panel.
 
