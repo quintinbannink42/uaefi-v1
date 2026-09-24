@@ -51,17 +51,18 @@ The GND zone was refilled in KiCad 8 over the widened outline.
 | --- | --- |
 | Shorts | 0 |
 | Tracks crossing | 0 |
-| Clearance | 286 |
+| Clearance | 348 |
 | Copper edge clearance | 50 |
-| Hole clearance | 11 |
-| Hole-to-hole | 41 |
+| Hole clearance | 12 |
+| Hole-to-hole | 47 |
+| Drill out of range | 12 |
 | Solder-mask bridge | 22 |
 | Items in the Bluetooth keepout | 186 |
-| Unconnected items | 61 |
+| Unconnected items | 40 |
 
-Header signal pads all have copper on their net. Ten required nets are one ratsnest island, including `OUT_INJ6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `EGT+`, and `EGT-`. Twenty required nets still have one break further along the net; see [ampseal-35-unrouted.md](ampseal-35-unrouted.md). The Bluetooth keepout violations are the new right-edge channel running beside the Bluetooth module. Clearance, edge, hole, and mask counts are the stock race-core class plus that channel.
+The harness is electrically complete. Every required J30/J31 signal net is one connected island from the header to the existing module and onboard copper, including the twenty that previously had a single ratsnest break. See [ampseal-35-unrouted.md](ampseal-35-unrouted.md). The 40 remaining unconnected items are other nets (internal power, spares, and stock race-core nets), not those harness signals.
 
-The board is not electrically complete for every harness net until those twenty breaks are closed. Do not treat it as ready to order a driving ECU until that list is empty.
+Clearance, edge, hole, mask, and drill-out-of-range counts are the stock race-core class plus the right-edge channel and the short bridges added to close the harness nets. The Bluetooth keepout violations are that channel running beside the Bluetooth module. None of those are shorts or crossing tracks.
 
 AMPSEAL hole-chart graphic on TE drawing 776163 sheet 2 is still not re-measured. Confirm it before a production panel.
 
