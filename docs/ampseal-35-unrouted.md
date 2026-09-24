@@ -1,6 +1,6 @@
 # AMPSEAL nets still needing copper to the new headers
 
-These header pads do not have a track or via ending on them after the Mini-Fit connector segments were removed. Existing copper elsewhere on the net was left in place.
+These header pads do not have a track or via ending on them after the Mini-Fit connector segments were removed. Existing copper elsewhere on the net was left in place. J30 is on the bottom edge and J31 is on the top edge; the net names below are unchanged.
 
 | Connector | Pin | Net | Touches copper |
 | --- | ---: | --- | --- |

@@ -8,7 +8,7 @@
 
 ## Dual AMPSEAL 35 harness (fork)
 
-This fork replaces the Mini-Fit Jr vehicle connectors with two TE AMPSEAL 35-pin headers (J30 and J31, 776163-1 family). See [docs/ampseal-35-pinout.md](docs/ampseal-35-pinout.md). The footprint hole chart is unverified against the current TE drawing. The outline has a bottom tab and a right tab so both headers fit; nets to those headers are not routed yet ([docs/ampseal-35-mechanical.md](docs/ampseal-35-mechanical.md)).
+This fork replaces the Mini-Fit Jr vehicle connectors with two TE AMPSEAL 35-pin headers (J30 and J31, 776163-1 family). See [docs/ampseal-35-pinout.md](docs/ampseal-35-pinout.md). The footprint hole chart is unverified against the current TE drawing. The outline is a taller rounded rectangle in the same family as the uaEFI race core, with J30 on the bottom edge and J31 on the top edge. Nets to those headers are not routed yet ([docs/ampseal-35-mechanical.md](docs/ampseal-35-mechanical.md)).
 
 ## Technical Details
 

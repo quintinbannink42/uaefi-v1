@@ -4,7 +4,7 @@
 * Pinout: [docs/ampseal-35-pinout.md](docs/ampseal-35-pinout.md).
 * Footprint `kicad6-libraries/TE_AMPSEAL_35_776163-1.kicad_mod` is a hypothesis adapted from a public KiCad proposal; verify against TE drawing 776163 before fabrication.
 * Board copper is not re-routed. One paralleled `+5VP` and one paralleled `GNDA` pin were dropped to fit 70 positions.
-* Outline grew by a bottom tab and a right tab so both headers fit. See [docs/ampseal-35-mechanical.md](docs/ampseal-35-mechanical.md). Mini-Fit segments that ended on the old pads were removed.
+* Outline is a 100 × 136 mm rounded rectangle. J30 is on the bottom edge and J31 is on the top edge. See [docs/ampseal-35-mechanical.md](docs/ampseal-35-mechanical.md). Mini-Fit segments that ended on the old pads were removed.
 
 # rev E
 
