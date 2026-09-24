@@ -1,3 +1,7 @@
+# Superseded
+
+Replaced by one TE 6437288-5. Use [superseal-60-pinout.md](superseal-60-pinout.md). The notes below are the old AMPSEAL assignment.
+
 # uaEFI dual AMPSEAL 35-pin harness pinout
 
 Light-touch redesign of the external harness connectors on this fork (`uaefi` rev E schematic/PCB). Electrical function of the rev E nets is preserved. Copper is **not** re-routed.

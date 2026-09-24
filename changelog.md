@@ -1,4 +1,12 @@
-# Dual AMPSEAL harness (this fork)
+# SUPERSEAL 60 harness (this fork)
+
+* One TE **6437288-5** SUPERSEAL 1.0 60-position right-angle header (J30) replaces the two AMPSEAL 35 headers and the 2.54 mm 2×02 sockets J1 and J11–J22, J24.
+* Pinout, current limits, and placement: [docs/superseal-60-pinout.md](docs/superseal-60-pinout.md), [docs/superseal-60-order.md](docs/superseal-60-order.md), [docs/superseal-60-mechanical.md](docs/superseal-60-mechanical.md).
+* The right edge moved from x = 158 to x = 208 so the shell can hang off that side. Smart-coil only; Q7–Q12 stay removed.
+* Paralleled `GND`, `+5VP`, and `GNDA` pins were reduced to fit 60 positions. No unique signal was dropped. 21 header pads are still unconnected; see the pinout doc.
+* The AMPSEAL footprint and notes are superseded.
+
+# Dual AMPSEAL harness (superseded)
 
 * External Mini-Fit harness connectors J2, J3, J4, J5, and J10 are replaced by two TE AMPSEAL 35-pin headers J30 (outputs / power / WBO) and J31 (sensors / CAN).
 * Pinout: [docs/ampseal-35-pinout.md](docs/ampseal-35-pinout.md).

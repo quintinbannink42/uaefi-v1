@@ -1,3 +1,7 @@
+# Superseded
+
+Use [superseal-60-order.md](superseal-60-order.md). The notes below describe the old dual AMPSEAL board.
+
 # Ordering this uaEFI AMPSEAL fork
 
 Smart-coil ignition only. Two AMPSEAL 35 headers on a 108 × 136 mm rounded rectangle.
