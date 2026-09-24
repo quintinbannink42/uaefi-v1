@@ -6,6 +6,10 @@
 
 🔴Community support ONLY 🔴 https://www.facebook.com/groups/rusEfi 🔴 [Discord](https://github.com/rusefi/rusefi/wiki/Discord)🔴
 
+## Dual AMPSEAL 35 harness (fork)
+
+This fork replaces the Mini-Fit Jr vehicle connectors with two TE AMPSEAL 35-pin headers (J30 bottom, J31 top). Ignition is logic-level smart coils only; the onboard ISL9V3040 IGBTs Q7–Q12 are removed. See [docs/ampseal-35-pinout.md](docs/ampseal-35-pinout.md) and [docs/ampseal-35-order.md](docs/ampseal-35-order.md).
+
 ## Technical Details
 
 Open Source KiCAD 7 hardware powered by [Hellen-One](https://github.com/andreika-git/hellen-one)
