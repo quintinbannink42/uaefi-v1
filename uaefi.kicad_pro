@@ -521,9 +521,60 @@
         "name": "IGN",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.15,
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
+        "track_width": 0.4,
+        "via_diameter": 0.55,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "PWR",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 2.4,
+        "via_diameter": 0.55,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "HC",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.2,
+        "via_diameter": 0.55,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "LS",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.0,
+        "via_diameter": 0.55,
+        "via_drill": 0.3,
         "wire_width": 6
       }
     ],
@@ -533,6 +584,38 @@
     "net_colors": null,
     "netclass_assignments": null,
     "netclass_patterns": [
+      {
+        "netclass": "PWR",
+        "pattern": "+12V*"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "*12V_KEY*"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "GND"
+      },
+      {
+        "netclass": "HC",
+        "pattern": "/OUT_LS_HOT*"
+      },
+      {
+        "netclass": "HC",
+        "pattern": "/OUT_INJ*"
+      },
+      {
+        "netclass": "HC",
+        "pattern": "/OUT_DC*"
+      },
+      {
+        "netclass": "HC",
+        "pattern": "/WBO_Heater"
+      },
+      {
+        "netclass": "LS",
+        "pattern": "/OUT_LS*"
+      },
       {
         "netclass": "IGN",
         "pattern": "/OUT_IGN*"

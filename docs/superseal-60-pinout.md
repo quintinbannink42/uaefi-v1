@@ -29,7 +29,7 @@ There is no spare pin.
 
 ## Pinout
 
-World placement is rotation 270°, pin 1 at (186, 78). Front row (`ly = 0`) is the outer row and leaves toward the right edge. The back row (`ly = 8`) leaves toward the board.
+World placement is rotation 270°, pin 1 at (214, 78). Front row (`ly = 0`) is the outer row, at x = 214. The back row (`ly = 8`) is at x = 206 and leaves toward the board.
 
 ### Front row — power and a few signals
 
@@ -87,8 +87,4 @@ World placement is rotation 270°, pin 1 at (186, 78). Front row (`ly = 0`) is t
 
 ## J30 pads still open on the PCB
 
-These header pads are assigned on the schematic and still have a ratsnest break to the rest of the net. Do not treat the harness as electrically complete.
-
-`OUT_DC1+`, `OUT_DC1−`, `OUT_DC2+`, `IN_PPS2`, `CAN−`, `IN_TPS1`, `IN_TPS2`, `IN_BUTTON1`, `IN_BUTTON2`, `IN_BUTTON3`, `IN_HALL1`, `IN_HALL2`, `IN_HALL3`, `IN_MAP`, `WBO_Vm`, `OUT_IGN1`, `OUT_IGN5`, `OUT_IGN6`, `OUT_INJ2`, `OUT_INJ3`, `OUT_INJ5`.
-
-The other 39 pins, including both GND pins, join existing copper. GND uses the plane plus a short stub. Details and current limits: [superseal-60-order.md](superseal-60-order.md).
+None. All 58 signal pins reach another pad on the same net. Pins 4 and 5 (`GND`) tie into the plane. Series widths and the fuse for each high-current channel are in [superseal-60-order.md](superseal-60-order.md). Cavity 1 is still unverified against `JPN_CD_6437288-5` (TE returned HTTP 403).

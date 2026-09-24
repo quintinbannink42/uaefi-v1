@@ -2,8 +2,8 @@
 
 * One TE **6437288-5** SUPERSEAL 1.0 60-position right-angle header (J30) replaces the two AMPSEAL 35 headers and the 2.54 mm 2×02 sockets J1 and J11–J22, J24.
 * Pinout, current limits, and placement: [docs/superseal-60-pinout.md](docs/superseal-60-pinout.md), [docs/superseal-60-order.md](docs/superseal-60-order.md), [docs/superseal-60-mechanical.md](docs/superseal-60-mechanical.md).
-* The right edge moved from x = 158 to x = 208 so the shell can hang off that side. Smart-coil only; Q7–Q12 stay removed.
-* Paralleled `GND`, `+5VP`, and `GNDA` pins were reduced to fit 60 positions. No unique signal was dropped. 21 header pads are still unconnected; see the pinout doc.
+* Outline is x = 0–258, y = 42–224 so the header at (214, 78) and the wide power/injector copper both fit. Smart-coil only; Q7–Q12 stay removed.
+* Paralleled `GND`, `+5VP`, and `GNDA` pins were reduced to fit 60 positions. No unique signal was dropped. Every J30 signal pad is routed. Continuous ratings follow the copper actually laid down (about 4.5 A on `+12V`, about 2–3 A on the 1.0–1.2 mm injector and low-side runs). A few channels stay near 1 A where the series section is still 0.30–0.55 mm. See the order doc.
 * The AMPSEAL footprint and notes are superseded.
 
 # Dual AMPSEAL harness (superseded)

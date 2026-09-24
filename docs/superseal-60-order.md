@@ -17,37 +17,57 @@ Carrier BOM for the connector change: [superseal-60-bom.csv](superseal-60-bom.cs
 
 ## Current the copper can actually carry
 
-Stackup is 4-layer, 1 oz (0.035 mm). IPC-2221, 10 °C rise, external `k = 0.048`, internal `k = 0.024`:
+Stackup is 4-layer, **1 oz (0.035 mm) on every copper layer**. IPC-2221, 10 °C rise, external `k = 0.048`, internal `k = 0.024`:
 
 | Width | External | Internal |
 |---|---|---|
 | 0.25 mm | 0.9 A | 0.4 A |
+| 0.30 mm | 1.0 A | 0.5 A |
+| 0.35 mm | 1.1 A | 0.6 A |
 | 0.40 mm | 1.2 A | 0.6 A |
 | 0.55 mm | 1.6 A | 0.8 A |
+| 0.80 mm | 2.0 A | 1.0 A |
+| 1.0 mm | 2.4 A | 1.2 A |
+| 1.2 mm | 2.7 A | 1.4 A |
+| 1.5 mm | 3.2 A | 1.6 A |
+| 2.4 mm | 4.5 A | 2.3 A |
+| 3.0 mm | 5.3 A | 2.7 A |
 
-The 3 mm pad pitch leaves a 0.7 mm gap. With 0.15 mm clearance the widest track that can leave a pad in a straight line is **0.40 mm**. Middle-row pads are staggered 1.5 mm, so those necks are **0.25 mm**. A 0.55 mm via pad / 0.30 mm drill (the board minimum hole is 0.30 mm) is about 1 A, and it is the practical continuous limit once the track is wider than the via.
+Net classes in `uaefi.kicad_pro` set the default width (clearance stays 0.15 mm, so existing tight copper is not a new class error). The class is the target. The continuous rating is the thinnest section longer than about 3 mm on the path from the header to the driver. A short pin-field neck does not set the fuse. A long thin run does, even if a wide spine sits in parallel. One 0.30 mm drill via is roughly 0.8 A; the wide nets use several vias at each layer change.
 
-Drawn harness copper:
+Do not rate a pin at the Superseal “15 A” catalog figure. That number is the contact, not this 1 oz board.
 
-| Class | Nets | Drawn width |
-|---|---|---|
-| High current | `+12V`, `+12V_RAW`, `12V_KEY`, `GND`, `WBO_Heater`, `OUT_INJ*`, `OUT_LS*`, `OUT_LS_HOT*`, `OUT_DC*` | 0.40 mm on the side lane and on the F.Cu row when that row is clear. The neck through the pin field is still 0.25 mm. |
-| Sensors, CAN, VR, EGT, coil logic | everything else on J30 | 0.25 mm |
+| Net | Series copper | Continuous, 1 oz, 10 °C, external | Fuse note |
+|---|---|---|---|
+| `+12V` | 2.4 mm (3.0 mm on the south corridor) | ~4.5 A | Fuse the feed near 5 A. The corridor is locally 3.0 mm on F and B; the series section is the 2.4 mm run, not 5–8 A. |
+| `+12V_RAW` | 1.5 mm (3.0 mm corridor does not continue) | ~3.2 A | Fuse near 3 A. |
+| `12V_KEY` | 0.80 mm over tens of millimetres | ~2.0 A | The 3.0 mm corridor stops. Fuse near 2 A. |
+| `GND` | plane on all four layers, plus wide spokes at the two header pins | plane | Two pins share the return. Do not add the Superseal rating twice. |
+| `OUT_INJ1`, `OUT_INJ3`, `OUT_INJ5`, `OUT_INJ6` | 1.2 mm | ~2.7 A | Injector current is pulsed. Fuse each channel near 2 A continuous. Peaks can sit above the IPC steady-state number for the pulse width; they cannot sit at 15 A. |
+| `OUT_INJ2` | 0.80 mm | ~2.0 A | Same pulse note. Fuse near 2 A. |
+| `OUT_INJ4` | 0.35 mm for about 140 mm | ~1.1 A | The 1.2 mm class did not fit this channel. Fuse near 1 A. |
+| `OUT_DC2+` | 1.0 mm | ~2.4 A | Motor current is longer than an injector pulse. Fuse near 2 A. |
+| `OUT_DC1+` | 0.80 mm | ~2.0 A | Fuse near 2 A. |
+| `OUT_DC1−`, `OUT_DC2−` | 0.55 mm | ~1.6 A | Fuse near 1.5 A. |
+| `WBO_Heater` | 1.2 mm, with a few millimetres at 1.0 mm | ~2.5 A | Heater duty is closer to continuous than an injector. Fuse near 2.5 A. |
+| `OUT_LS2`, `OUT_LS3`, `OUT_LS_HOT1`, `OUT_LS_HOT2` | 1.0–1.2 mm | ~2.4–2.7 A | Fuse near 2 A. |
+| `OUT_LS4` | 0.30 mm for about 66 mm after the 1.0 mm run | ~1.0 A | Fuse near 1 A. |
+| `OUT_LS1` | 1.0 mm for most of the run, then about 20 mm at 0.25 mm | ~0.9 A | The thin section sets the rating. Fuse near 1 A. |
+| `OUT_IGN1`–`OUT_IGN6` | 0.40 mm | logic | Smart-coil gate drive, not coil current. |
+| Sensors, CAN, VR, EGT, `+5VP`, `GNDA` | 0.25–0.40 mm | signal | `VR_MAX9924−` uses a 0.15 mm fanout where the pin field would not pass 0.25 mm. |
 
-Do not rate a pin at the Superseal “15 A” catalog figure, and do not rate `+12V` or a DC output at 5–8 A. VNLD5160 and TLE9201 can be asked for more current than this 1 oz neck can bring to the pin. Fuse each high-current channel at **1 A continuous** unless the neck is widened on a heavier copper revision. Two GND pins share the return; they do not make a 15 A ground.
+## DRC (KiCad 8.0.9)
 
-`+5VP` and `GNDA` are one pin each. Coil outputs are logic, not coil current.
+No shorts and no crossing tracks. New vias are 0.55 mm pad / 0.30 mm drill. Every J30 signal pad reaches another pad on its net. Both GND header pins tie into the plane.
 
-## DRC (KiCad 8, errors)
+Still not a clean fab sign-off:
 
-No shorts and no crossing tracks. New vias are 0.55 mm pad / 0.30 mm drill, which clears the minimum hole.
-
-Still open, and not a clean fab sign-off:
-
-- 21 J30 pads listed in the pinout doc are still unconnected.
-- Clearance violations remain on harness tracks that pass existing vias and on copper that was already tight. The previous AMPSEAL board also reported a large clearance set.
-- A few new tracks enter the Bluetooth keepout and run close to the outline.
-- Solder-mask bridges remain near the left mounting holes where a route passed H1/H2. Vias that drilled into H1, H2, or a U3 pad were removed.
+- Clearance violations remain (about 360), including harness tracks beside existing vias and copper that was already tight.
+- `items_not_allowed` is unchanged at 188 (footprints and keepouts that predate this route, including the Bluetooth keepout).
+- 22 connection-width reports, mostly GND, plus the `VR_MAX9924−` fanout and short necks on `OUT_LS2`, `OUT_LS4`, and `OUT_DC1−`.
+- 9 unconnected items are dangling islands on nets whose header pin is already tied to a driver pad (M2 GND, a few millimetres of `OUT_DC2−`, `+5VP`, buttons, `OUT_IGN2`, `OUT_INJ6`, and the onboard `LS_HOT` stubs). They are not open header pads.
+- 6 copper-to-edge and 24 solder-mask-bridge reports remain. Hole-to-hole spacing reports 12.
+- Cavity 1 of 6437288-5 is still unverified: TE returned HTTP 403 for `JPN_CD_6437288-5`.
 
 ## Removed from the carrier
 

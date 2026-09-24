@@ -6,7 +6,7 @@ Pinout: [superseal-60-pinout.md](superseal-60-pinout.md). Current limits: [super
 
 ## Outline
 
-The old right edge was x = 158. It is now **x = 208**, so the board is 158 × 136 mm instead of 108 × 136 mm. Corners stay a 3.5 mm radius. The extra 50 mm is empty copper area for the header and its fanout. Top and bottom edges are unchanged (y = 42 and y = 178).
+The outline is **x = 0 to 258, y = 42 to 224** (258 × 182 mm). Corners stay a 3.5 mm radius. The right side holds the header. The left edge (x = 0) and the bottom edge (y = 224) are the routing channel for the wide power and injector tracks. The old 158 × 136 mm outline does not fit that copper.
 
 ## J30
 
@@ -14,13 +14,13 @@ The old right edge was x = 158. It is now **x = 208**, so the board is 158 × 13
 |---|---|
 | Reference | J30 |
 | Part | TE 6437288-5 |
-| Origin | (186, 78), rotation 270° |
-| Pin 1 | (186, 78), outer row, toward the right edge |
-| Pin field | about x = 178–186, y = 78–134.5 |
-| Mounting holes | 3.4 mm NPTH at x = 171.5, y ≈ 70.8, 109.3, 141.8 |
+| Origin | (214, 78), rotation 270° |
+| Pin 1 | (214, 78), outer row |
+| Pin field | x = 206, 208.5, 211.5, and 214; y = 78–134.5 |
+| Mounting holes | 3.4 mm NPTH at x = 199.5, y = 70.75, 109.25, 141.75 |
 | Body | catalog envelope about 78 × 36.5 mm, mating height about 27.9 mm |
 
-Rotation 270° points the mating face at the right edge. The shell hangs off x = 208. That is intentional.
+Rotation 270° points the mating face toward the right edge (x = 258). Confirm the shell against that edge before a panel. Cavity 1 is still unverified.
 
 The 34-position plug (pins 1–34) and the 26-position plug (pins 35–60) sit on either side of the 14.5 mm gap in the pin grid.
 
