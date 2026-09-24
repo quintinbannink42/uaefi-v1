@@ -28,12 +28,39 @@ Before a production panel, open ENG_CD_776163 in KiCad 8 and confirm the hole ch
 
 ## Fab outputs
 
-This tree’s board file is KiCad 8 (`generator_version` 8.0). The build environment here has KiCad 7.0.11, which refuses the file, so Gerbers, drill, and IPC-D-356 were **not** regenerated. In KiCad 8:
+Generated with KiCad 8.0.9 (`kicad-cli`). Files are in `fab/`:
 
-1. Refill zones (the GND pour outline now matches the 100 × 136 mm board; the fill polygons are still the old 100 × 100 mm pour).
-2. Run DRC. Expect to clean the six direct routes listed in [ampseal-35-unrouted.md](ampseal-35-unrouted.md).
-3. Plot Gerbers and drill the same way as the existing `gerber/` outputs (F.Cu, In1.Cu, In2.Cu, B.Cu, masks, silk, edge cuts).
-4. Export a position file. Q7–Q12 must not appear.
+| File | Use |
+| --- | --- |
+| `uaefi-F_Cu.gbr`, `uaefi-In1_Cu.gbr`, `uaefi-In2_Cu.gbr`, `uaefi-B_Cu.gbr` | Copper |
+| `uaefi-F_Mask.gbr`, `uaefi-B_Mask.gbr` | Solder mask |
+| `uaefi-F_Paste.gbr`, `uaefi-B_Paste.gbr` | Paste |
+| `uaefi-F_Silkscreen.gbr`, `uaefi-B_Silkscreen.gbr` | Silkscreen |
+| `uaefi-Edge_Cuts.gbr` | Board outline |
+| `uaefi-PTH.drl`, `uaefi-NPTH.drl` | Excellon drill, plated and non-plated |
+| `uaefi-pos.csv` | Pick-and-place (mm, CSV). Q7–Q12 are not on the board. |
+| `uaefi-job.gbrjob` | Gerber job file |
+
+JLCPCB / PCBWay upload: zip `fab/` and load the Gerbers plus both drill files. Set 4 layers, 1.6 mm, the stackup order F / In1 / In2 / B. Confirm the outline is 100 × 136 mm before paying.
+
+The GND zone was refilled in KiCad 8. Its filled bounding box is the full outline (100 × 136 mm, y 42–178).
+
+## DRC (KiCad 8.0.9, errors only)
+
+| Check | Count |
+| --- | --- |
+| Shorts | 0 |
+| Tracks crossing | 0 |
+| Clearance | 103 |
+| Copper edge clearance | 37 |
+| Hole clearance | 20 |
+| Solder-mask bridge | 19 |
+| Items in keepout | 8 |
+| Unconnected items | 101 |
+
+The straight jumps that shorted `OUT_INJ6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `EGT+`, and `EGT-` were removed. A clearance-safe path through the Hellen-One modules does not exist for those nets, or for the other header pins listed in [ampseal-35-unrouted.md](ampseal-35-unrouted.md). They are open, not shorted. The remaining clearance, edge, hole, and mask errors are the same class as the stock race-core board (zone and silk/hole geometry). They are not a new short between AMPSEAL nets.
+
+AMPSEAL hole-chart graphic on TE drawing 776163 sheet 2 is still not re-measured. Confirm it before a production panel.
 
 ## Loom
 

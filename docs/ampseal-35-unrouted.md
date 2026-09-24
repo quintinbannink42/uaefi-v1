@@ -1,14 +1,11 @@
 # Header copper
 
-Every signal pad on J30 and J31 has a track that ends on the pad. Spare pins 34 and 35 on J30 and pin 35 on J31 are intentionally unconnected.
+KiCad 8.0.9 refilled the GND zone to the full 100 × 136 mm outline (y 42–178). New tracks were added only where a path stayed clear of other nets. DRC reports **no shorts** and **no crossing tracks**.
 
-Routes were added on B.Cu, then In2.Cu, In1.Cu, or F.Cu, from each header pad to existing copper of the same net. Six nets could not be reached without crossing other copper, so they use a direct two-segment path on B.Cu:
+These header pads still have no copper connection. A path that meets the 0.15 mm clearance through the Hellen-One modules was not found, so they were left open instead of jumped across other copper:
 
-- J30 pin 12 `OUT_INJ6`
-- J30 pin 25 `OUT_DC1+`
-- J30 pin 26 `OUT_DC1-`
-- J30 pin 27 `OUT_DC2+`
-- J31 pin 33 `EGT+`
-- J31 pin 34 `EGT-`
+J30: pin 12 `OUT_INJ6`, pin 15 `OUT_IGN3`, pin 16 `OUT_IGN4`, pin 17 `OUT_IGN5`, pin 18 `OUT_IGN6`, pin 20 `OUT_LS2`, pin 21 `OUT_LS3`, pin 22 `OUT_LS4`, pin 23 `OUT_LS_HOT1`, pin 25 `OUT_DC1+`, pin 26 `OUT_DC1-`, pin 27 `OUT_DC2+`, pin 29 `WBO_Heater`, pin 30 `WBO_Ip`, pin 31 `WBO_Un`, pin 32 `WBO_Vm`, pin 33 `WBO_Rtrim`.
 
-Those six should be reviewed in KiCad 8 DRC. The GND zone outline was expanded to the new board edge, but the zone fill is still the rev E pour. Refill zones in KiCad 8 before fabrication so the ground pins also tie into the pour.
+J31: pin 16 `IN_IAT`, pin 18 `IN_FLEX`, pin 19 `IN_KNOCK_RAW`, pin 24 `IN_BUTTON2`, pin 26 `IN_HALL1`, pin 27 `IN_HALL2`, pin 28 `IN_HALL3`, pin 29 `VR_MAX9924+`, pin 30 `VR_MAX9924-`, pin 31 `VR_DISCRETE+`, pin 32 `VR_DISCRETE-`, pin 33 `EGT+`, pin 34 `EGT-`.
+
+Spare pins 34 and 35 on J30 and pin 35 on J31 stay unconnected on purpose. The six nets called out earlier (`OUT_INJ6`, `OUT_DC1+`, `OUT_DC1-`, `OUT_DC2+`, `EGT+`, `EGT-`) are in this open list. They no longer use a direct B.Cu jump.
