@@ -1,73 +1,14 @@
-# AMPSEAL nets still needing copper to the new headers
+# Header copper
 
-These header pads do not have a track or via ending on them after the Mini-Fit connector segments were removed. Existing copper elsewhere on the net was left in place. J30 is on the bottom edge and J31 is on the top edge; the net names below are unchanged.
+Every signal pad on J30 and J31 has a track that ends on the pad. Spare pins 34 and 35 on J30 and pin 35 on J31 are intentionally unconnected.
 
-| Connector | Pin | Net | Touches copper |
-| --- | ---: | --- | --- |
-| J30 | 1 | `+12V_RAW` | no |
-| J30 | 2 | `+12V` | no |
-| J30 | 3 | `/12V_KEY` | no |
-| J30 | 4 | `GND` | no |
-| J30 | 5 | `GND` | no |
-| J30 | 6 | `GND` | no |
-| J30 | 7 | `/OUT_INJ1` | no |
-| J30 | 8 | `/OUT_INJ2` | no |
-| J30 | 9 | `/OUT_INJ3` | no |
-| J30 | 10 | `/OUT_INJ4` | no |
-| J30 | 11 | `/OUT_INJ5` | no |
-| J30 | 12 | `/OUT_INJ6` | no |
-| J30 | 13 | `/OUT_IGN1` | no |
-| J30 | 14 | `/OUT_IGN2` | no |
-| J30 | 15 | `/OUT_IGN3` | no |
-| J30 | 16 | `/OUT_IGN4` | no |
-| J30 | 17 | `/OUT_IGN5` | no |
-| J30 | 18 | `/OUT_IGN6` | no |
-| J30 | 19 | `/OUT_LS1` | no |
-| J30 | 20 | `/OUT_LS2` | no |
-| J30 | 21 | `/OUT_LS3` | no |
-| J30 | 22 | `/OUT_LS4` | no |
-| J30 | 23 | `/OUT_LS_HOT1` | no |
-| J30 | 24 | `/OUT_LS_HOT2` | no |
-| J30 | 25 | `/OUT_DC1+` | no |
-| J30 | 26 | `/OUT_DC1-` | no |
-| J30 | 27 | `/OUT_DC2+` | no |
-| J30 | 28 | `/OUT_DC2-` | no |
-| J30 | 29 | `/WBO_Heater` | no |
-| J30 | 30 | `/WBO_Ip` | no |
-| J30 | 31 | `/WBO_Un` | no |
-| J30 | 32 | `/WBO_Vm` | no |
-| J30 | 33 | `/WBO_Rtrim` | no |
-| J31 | 1 | `+5VP` | no |
-| J31 | 2 | `+5VP` | no |
-| J31 | 3 | `+5VP` | no |
-| J31 | 4 | `GNDA` | no |
-| J31 | 5 | `GNDA` | no |
-| J31 | 6 | `GNDA` | no |
-| J31 | 7 | `GNDA` | no |
-| J31 | 8 | `GND` | no |
-| J31 | 9 | `/CAN+` | no |
-| J31 | 10 | `/CAN-` | no |
-| J31 | 11 | `/IN_MAP` | no |
-| J31 | 12 | `/IN_TPS1` | no |
-| J31 | 13 | `/IN_TPS2` | no |
-| J31 | 14 | `/IN_PPS1` | no |
-| J31 | 15 | `/IN_PPS2` | no |
-| J31 | 16 | `/IN_IAT` | no |
-| J31 | 17 | `/IN_CLT` | no |
-| J31 | 18 | `/IN_FLEX` | no |
-| J31 | 19 | `/IN_KNOCK_RAW` | no |
-| J31 | 20 | `/IN_AUX1` | no |
-| J31 | 21 | `/IN_AUX2` | no |
-| J31 | 22 | `/IN_AUX3` | no |
-| J31 | 23 | `/IN_BUTTON1` | no |
-| J31 | 24 | `/IN_BUTTON2` | no |
-| J31 | 25 | `/IN_BUTTON3` | no |
-| J31 | 26 | `/IN_HALL1` | no |
-| J31 | 27 | `/IN_HALL2` | no |
-| J31 | 28 | `/IN_HALL3` | no |
-| J31 | 29 | `/VR_MAX9924+` | no |
-| J31 | 30 | `/VR_MAX9924-` | no |
-| J31 | 31 | `/VR_DISCRETE+` | no |
-| J31 | 32 | `/VR_DISCRETE-` | no |
-| J31 | 33 | `/EGT+` | no |
-| J31 | 34 | `/EGT-` | no |
+Routes were added on B.Cu, then In2.Cu, In1.Cu, or F.Cu, from each header pad to existing copper of the same net. Six nets could not be reached without crossing other copper, so they use a direct two-segment path on B.Cu:
+
+- J30 pin 12 `OUT_INJ6`
+- J30 pin 25 `OUT_DC1+`
+- J30 pin 26 `OUT_DC1-`
+- J30 pin 27 `OUT_DC2+`
+- J31 pin 33 `EGT+`
+- J31 pin 34 `EGT-`
+
+Those six should be reviewed in KiCad 8 DRC. The GND zone outline was expanded to the new board edge, but the zone fill is still the rev E pour. Refill zones in KiCad 8 before fabrication so the ground pins also tie into the pour.

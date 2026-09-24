@@ -40,6 +40,8 @@ Cavity numbering follows that proposal (mating-face / TE convention):
 
 Outputs and high-current returns. Injectors, coils, and low-sides are grouped so a loom can break them out as bundles.
 
+Ignition pins are logic-level smart-coil outputs. The optional dumb-coil IGBTs Q7–Q12 (ISL9V3040D3ST) are removed; do not populate them.
+
 | Pin | Signal | Was |
 | ---: | --- | --- |
 | 1 | `+12V_RAW` | J3-1 |

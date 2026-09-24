@@ -2,7 +2,7 @@
 
 Same family as the rusEFI uaEFI race core, not a clone. Modules, USB, and the four M3 holes stay where rev E put them. Only the outline and J31 moved so the two headers sit on opposite edges.
 
-Pinout is unchanged (`docs/ampseal-35-pinout.md`).
+Pinout is unchanged (`docs/ampseal-35-pinout.md`). Ignition is smart-coil only: Q7–Q12 are gone. Header pads have tracks; see `docs/ampseal-35-order.md`.
 
 ## Outline
 
