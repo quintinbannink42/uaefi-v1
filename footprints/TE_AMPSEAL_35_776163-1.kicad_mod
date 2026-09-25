@@ -2,7 +2,7 @@
 	(version 20240108)
 	(generator "cursor")
 	(layer "F.Cu")
-	(descr "TE AMPSEAL 35-pos right-angle PCB header, 776163-1 (key 1, tin). Pitch 4 mm and 35x 1.75 mm drills match the text of TE customer drawing 776163 rev K1. Body outline and the middle-row 2 mm offset follow KiCad footprint PR 633 with pin 16 corrected. Drawing sheet 2 hole chart is graphical and was not re-digitized; confirm pad XY against ENG_CD_776163 before a production panel. Mating plug 776164-x.")
+	(descr "SUPERSEDED by TE 6437288-5 SuperSeal. Do not place. TE AMPSEAL 35-pos right-angle PCB header, 776163-1 (key 1, tin). Pitch 4 mm and 35x 1.75 mm drills match the text of TE customer drawing 776163 rev K1. Body outline and the middle-row 2 mm offset follow KiCad footprint PR 633 with pin 16 corrected. Drawing sheet 2 hole chart is graphical and was not re-digitized; confirm pad XY against ENG_CD_776163 before a production panel. Mating plug 776164-x.")
 	(tags "TE AMPSEAL 35 776163")
 	(property "Reference" "REF**"
 		(at 22 -4 0)

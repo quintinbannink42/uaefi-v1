@@ -20,5 +20,5 @@
   (lib (name "hellen-one-mega-mcu100-0.3")(type "KiCad")(uri "${KIPRJMOD}/hellen-one/modules/mega-mcu100/0.3")(options "")(descr ""))
   (lib (name "0.5")(type "KiCad")(uri "${KIPRJMOD}/hellen-one/modules/wbo/0.5")(options "")(descr ""))
   (lib (name "hellen-one-vr-discrete-0.5")(type "KiCad")(uri "${KIPRJMOD}/hellen-one/modules/vr-discrete/0.5")(options "")(descr ""))
-  (lib (name "ampseal")(type "KiCad")(uri "${KIPRJMOD}/footprints")(options "")(descr "Local AMPSEAL footprints for this fork"))
+  (lib (name "local-conn")(type "KiCad")(uri "${KIPRJMOD}/footprints")(options "")(descr "Local harness connector footprints"))
 )

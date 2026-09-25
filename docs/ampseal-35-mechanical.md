@@ -1,3 +1,7 @@
+# Superseded
+
+Use [superseal-60-mechanical.md](superseal-60-mechanical.md). The notes below describe the old dual AMPSEAL outline.
+
 # AMPSEAL 35 mechanical placement
 
 Same family as the rusEFI uaEFI race core, not a clone. Modules, USB, and the four M3 holes stay where rev E put them. Only the outline and J31 moved so the two headers sit on opposite edges.
