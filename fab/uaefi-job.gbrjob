@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "8.0.9-8.0.9-0~ubuntu24.04.1"
     },
-    "CreationDate": "2026-09-24T21:00:17+00:00"
+    "CreationDate": "2026-09-26T03:31:19+00:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -14,8 +14,8 @@
       "Revision": "E"
     },
     "Size": {
-      "X": 258.1,
-      "Y": 182.1
+      "X": 151.3,
+      "Y": 112.2
     },
     "LayerNumber": 4,
     "BoardThickness": 1.6,
@@ -43,57 +43,57 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "uaefi-F_Cu.gtl",
+      "Path": "uaefi-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-In1_Cu.g2",
+      "Path": "uaefi-In1_Cu.gbr",
       "FileFunction": "Copper,L2,Inr",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-In2_Cu.g3",
+      "Path": "uaefi-In2_Cu.gbr",
       "FileFunction": "Copper,L3,Inr",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-B_Cu.gbl",
+      "Path": "uaefi-B_Cu.gbr",
       "FileFunction": "Copper,L4,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-F_Paste.gtp",
+      "Path": "uaefi-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-B_Paste.gbp",
+      "Path": "uaefi-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-F_Silkscreen.gto",
+      "Path": "uaefi-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-B_Silkscreen.gbo",
+      "Path": "uaefi-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "uaefi-F_Mask.gts",
+      "Path": "uaefi-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "uaefi-B_Mask.gbs",
+      "Path": "uaefi-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "uaefi-Edge_Cuts.gm1",
+      "Path": "uaefi-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
