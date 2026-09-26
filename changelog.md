@@ -1,8 +1,14 @@
+# SUPERSEAL 60 on the left edge
+
+* J30 (TE **6437288-5**) moves from the right edge to the left edge: origin (3.5, 138), rotation 90°, pin 1 at the south end of the front row. Cavity numbers are unchanged. The mating shell hangs off x = 0.
+* Outline is **151.2 × 112.1 mm** (x 0–151.2, y 52.4–164.5). Rev E was 100 × 100 mm. The right-edge SuperSeal board was 258 × 182 mm. The right-side growth is gone. The board is still wider and taller than 100 mm plus the 24.6 mm header courtyard, because the header escape and the top/bottom lanes sit outside the packed race core.
+* No AMPSEAL, no dumb-coil IGBTs, no 2.54 mm 2×02 sockets. No pins were re-paralleled.
+
 # SUPERSEAL 60 harness (this fork)
 
 * One TE **6437288-5** SUPERSEAL 1.0 60-position right-angle header (J30) replaces the two AMPSEAL 35 headers and the 2.54 mm 2×02 sockets J1 and J11–J22, J24.
 * Pinout, current limits, and placement: [docs/superseal-60-pinout.md](docs/superseal-60-pinout.md), [docs/superseal-60-order.md](docs/superseal-60-order.md), [docs/superseal-60-mechanical.md](docs/superseal-60-mechanical.md).
-* Outline is x = 0–258, y = 42–224 so the header at (214, 78) and the wide power/injector copper both fit. Smart-coil only; Q7–Q12 stay removed.
+* Smart-coil only; Q7–Q12 stay removed.
 * Paralleled `GND`, `+5VP`, and `GNDA` pins were reduced to fit 60 positions. No unique signal was dropped. Every J30 signal pad is routed. Continuous ratings follow the copper actually laid down (about 4.5 A on `+12V`, about 2–3 A on the 1.0–1.2 mm injector and low-side runs). A few channels stay near 1 A where the series section is still 0.30–0.55 mm. See the order doc.
 * The AMPSEAL footprint and notes are superseded.
 

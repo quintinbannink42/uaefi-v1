@@ -29,7 +29,7 @@ There is no spare pin.
 
 ## Pinout
 
-World placement is rotation 270°, pin 1 at (214, 78). Front row (`ly = 0`) is the outer row, at x = 214. The back row (`ly = 8`) is at x = 206 and leaves toward the board.
+World placement is rotation 90°, origin (3.5, 138). Pin 1 is the south end of the front row, at (3.5, 138). The front row (`ly = 0`) is the outer row, at x = 3.5, and the mating shell hangs off the left edge. The back row (`ly = 8`) is at x = 11.5 and leaves toward the board. Cavity numbers are unchanged. Because pin 1 moved from the north end of the old right-edge header to the south end, world Y order of the cavities is reversed.
 
 ### Front row — power and a few signals
 
