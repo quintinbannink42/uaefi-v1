@@ -8,7 +8,7 @@
 
 ## SUPERSEAL 60 harness (fork)
 
-This fork uses one TE SUPERSEAL 1.0 60-position header, **6437288-5**, on the left edge (J30 at 3.5, 138, rotation 90°, pin 1 at the south end). The dual AMPSEAL 35 headers and the 2.54 mm 2×02 sockets are removed. Ignition is logic-level smart coils only; the onboard ISL9V3040 IGBTs Q7–Q12 stay off the board. Outline is 151.2 × 112.1 mm (x 0–151.2, y 52.4–164.5), down from the 258 × 182 mm right-edge board. See [docs/superseal-60-pinout.md](docs/superseal-60-pinout.md) and [docs/superseal-60-order.md](docs/superseal-60-order.md).
+This fork uses one TE SUPERSEAL 1.0 60-position header, **6437288-5**, on the left edge (J30 at 28.2, 138, rotation 90°, pin 1 at the south end). The dual AMPSEAL 35 headers and the 2.54 mm 2×02 sockets are removed. Ignition is logic-level smart coils only; the onboard ISL9V3040 IGBTs Q7–Q12 stay off the board. Outline is 125 × 100 mm (x 25–150, y 60–160). The old socket pin-name legend is gone; J30 keeps a silkscreen “1” on pin 1. See [docs/superseal-60-pinout.md](docs/superseal-60-pinout.md) and [docs/superseal-60-order.md](docs/superseal-60-order.md).
 
 ## Technical Details
 

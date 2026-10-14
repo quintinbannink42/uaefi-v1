@@ -37,34 +37,57 @@ Net classes in `uaefi.kicad_pro` set the default width (clearance stays 0.15 mm,
 
 Do not rate a pin at the Superseal “15 A” catalog figure. That number is the contact, not this 1 oz board.
 
-Widths below are the thinnest track longer than about 3 mm on the left-edge route. Net classes in the project file are unchanged (`PWR` 2.4, `HC` 1.2, `LS` 1.0, `IGN` 0.40). The pin field and the escape channel necked most power nets below those classes. No pin was re-paralleled.
+Widths below are the thinnest track longer than about 3 mm after the header moved onto the core. Net classes in the project file are unchanged (`PWR` 2.4, `HC` 1.2, `LS` 1.0, `IGN` 0.40). The 3 mm pin field still cannot hold those classes: a 2.3 mm pad on a 3 mm pitch leaves a 0.7 mm gap, and 0.15 mm clearance makes 0.40 mm the widest track that fits. Outside the field the escape widens where it can. No pin was re-paralleled.
 
 | Net | Series copper (thinnest run > ~3 mm) | Continuous, 1 oz, 10 °C, external | Fuse note |
 |---|---|---|---|
-| `+12V` | 0.55 mm | ~1.6 A | Class is 2.4 mm. The left-edge escape does not hold that width. Fuse near 1.5 A until the neck is widened. |
-| `+12V_RAW` | 0.50 mm | ~1.5 A | Fuse near 1.5 A. |
+| `+12V`, `+12V_RAW`, `GND` | 0.40 mm | ~1.2 A | Class is 2.4 mm. The pin-field gap is the limit. Fuse near 1 A until that neck is a plane or a parallel pin. |
 | `12V_KEY` | 0.24 mm | ~0.9 A | Fuse near 1 A. |
-| `GND` | plane, plus the two header pins | plane | Two pins share the return. |
-| `OUT_INJ2`, `OUT_DC1+`, `OUT_DC1−`, `OUT_DC2+`, `OUT_DC2−`, `OUT_LS1`, `OUT_LS_HOT1` | 0.55 mm | ~1.6 A | Injector and motor current is pulsed or intermittent. Fuse each near 1.5 A continuous. |
-| `OUT_INJ3`, `OUT_LS2`, `OUT_LS3`, `OUT_LS4` | 0.50 mm | ~1.5 A | Same note. |
-| `OUT_INJ1`, `OUT_INJ4`, `OUT_INJ5`, `OUT_INJ6`, `WBO_Heater`, `OUT_LS_HOT2` | 0.24 mm | ~0.9 A | Heater duty is closer to continuous. Fuse the heater near 1 A. |
-| `OUT_IGN6` | 0.40 mm | logic | Smart-coil gate drive. |
+| `OUT_DC1+`, `OUT_DC1−`, `OUT_INJ4`, `OUT_INJ5`, `OUT_LS3` | 0.50 mm | ~1.5 A | Pulsed. Fuse near 1.5 A continuous. |
+| `OUT_INJ2`, `OUT_INJ3`, `OUT_LS1`, `OUT_LS2`, `OUT_LS4`, `OUT_LS_HOT1` | 0.40 mm | ~1.2 A | Same note. |
+| `OUT_DC2+`, `OUT_DC2−` | 0.25 mm | ~0.9 A | Class is 1.2 mm. Fuse near 1 A. |
+| `OUT_INJ1`, `OUT_INJ6`, `WBO_Heater`, `OUT_LS_HOT2` | 0.24 mm | ~0.9 A | Heater duty is closer to continuous. Fuse the heater near 1 A. |
+| `OUT_IGN6` | 0.25 mm | logic | Smart-coil gate drive. Class is 0.40 mm. |
 | `OUT_IGN1`, `OUT_IGN2` | 0.24 mm | logic | Gate drive. |
-| `OUT_IGN3`, `OUT_IGN4`, `OUT_IGN5` | 0.15 mm | logic | Gate drive. The 0.40 mm class does not fit these escapes. |
-| `+5VP` | 0.40 mm | signal / low current | |
-| Sensors, CAN, `GNDA`, VR | 0.20–0.25 mm | signal | `CAN±` and `GNDA` neck to 0.20 mm. |
+| `OUT_IGN3`, `OUT_IGN4`, `OUT_IGN5` | 0.15 mm | logic | Gate drive. Still below the 0.40 mm class. |
+| `+5VP` | 0.25 mm | signal / low current | |
+| `GNDA` | 0.20 mm | signal | |
+| Sensors, CAN, VR, EGT | 0.15–0.20 mm | signal | Several new escapes are 0.15 mm for more than 3 mm. |
 
-## DRC (KiCad 8.0.9, errors only)
+## DRC (KiCad 8.0.9)
 
-Every used J30 pad, including both GND pins, has same-net copper on the pad. No harness pins were re-paralleled. New vias are 0.55 mm pad / 0.30 mm drill.
+Every used J30 pad was connected on the previous left-edge board, including both GND pins. Cavity numbers are unchanged. New vias are 0.55 mm pad / 0.30 mm drill. The old socket pin-name legend (186 silkscreen labels) is removed. The only added connector mark is the footprint’s silkscreen “1” at (29.4, 140.6).
 
-Compared with the right-edge board (0 shorts, 0 crossing tracks, 9 unconnected, 500 clearance, 196 hole-clearance, 188 items-not-allowed):
+Compared with that board (squash `57590d2`, the PR #3 layout):
 
-- Shorts: **46**. These are harness tracks crossing module GND fingers and a few driver pads. There are **0 crossing tracks**.
-- Unconnected items: 19. They are islands and layer changes, not open J30 pads.
-- Clearance: 77. `items_not_allowed`: 37. Solder-mask bridge: 26. Hole-to-hole: 12.
-- No copper-to-edge errors on this outline.
-- Cavity 1 of 6437288-5 is still unverified: TE returned HTTP 403 for `JPN_CD_6437288-5`.
+| Check | PR #3 (151.2 × 112.1) | This layout (125 × 100) |
+|---|---|---|
+| Shorts | 46 | **0** |
+| Crossing tracks | 0 | **0** |
+| Unconnected items | 19 | 81 |
+| Open J30 pads | 0 | **6** |
+| Clearance | 79 | **33** |
+| Copper-to-edge | 0 | **0** |
+| Solder-mask bridge | 26 | 2 |
+| Items not allowed | 37 | 36 |
+| Hole-to-hole | 12 | 12 |
+
+The 46 shorts were harness tracks through module GND fingers and driver pads. Those tracks were deleted and the escape was drawn again around the fingers.
+
+Six header pads are still open. Each one still has its core trace; the pin-field gap next to it is already taken by a neighbor:
+
+| Pin | Net | Core copper still on the board |
+|---|---|---|
+| 47 | `IN_HALL3` | In1.Cu, about 5.3 mm, not reaching the header |
+| 46 | `IN_HALL2` | B.Cu, about 6.7 mm |
+| 45 | `IN_HALL1` | B.Cu, about 14.7 mm |
+| 38 | `VR_MAX9924+` | In1.Cu, about 72.5 mm |
+| 37 | `EGT−` | In1.Cu, about 12.0 mm |
+| 11 | `WBO_Un` | F.Cu, about 7.0 mm |
+
+`IN_HALL2` and `IN_HALL3` do connect if they are routed before their neighbors. On this board those neighbors already occupy the only 0.40 mm slot, so the three were left open together rather than trading which signal wins the slot.
+
+Cavity 1 of 6437288-5 is still unverified: TE returned HTTP 403 for `JPN_CD_6437288-5`.
 
 ## Removed from the carrier
 

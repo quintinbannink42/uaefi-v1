@@ -1,3 +1,10 @@
+# Header pulled onto the race core
+
+* J30 stays TE **6437288-5**, rotation 90°, pin 1 at the south end. Origin moves from (3.5, 138) to **(28.2, 138)**. Cavity numbers are unchanged. The mating shell hangs off x = 25.
+* Outline shrinks from 151.2 × 112.1 mm to **125 × 100 mm** (x 25–150, y 60–160). That is the original 100 × 100 mm core plus the on-board part of the header.
+* The stale socket pin-name silkscreen is removed. J30 keeps the footprint silkscreen “1”.
+* The harness escape was redrawn. Shorts go from 46 to 0. Six signal pads (`IN_HALL1`–`IN_HALL3`, `VR_MAX9924+`, `EGT−`, `WBO_Un`) are still open; their core traces remain. Power necks are still below the net class because the 3 mm pin field only clears a 0.40 mm track. See [docs/superseal-60-order.md](docs/superseal-60-order.md).
+
 # SUPERSEAL 60 on the left edge
 
 * J30 (TE **6437288-5**) moves from the right edge to the left edge: origin (3.5, 138), rotation 90°, pin 1 at the south end of the front row. Cavity numbers are unchanged. The mating shell hangs off x = 0.
