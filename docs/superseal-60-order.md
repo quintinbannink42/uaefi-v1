@@ -49,7 +49,9 @@ Widths below are the thinnest track longer than about 3 mm after the header move
 | `OUT_INJ1`, `OUT_INJ6`, `WBO_Heater`, `OUT_LS_HOT2` | 0.24 mm | ~0.9 A | Heater duty is closer to continuous. Fuse the heater near 1 A. |
 | `OUT_IGN6` | 0.25 mm | logic | Smart-coil gate drive. Class is 0.40 mm. |
 | `OUT_IGN1`, `OUT_IGN2` | 0.24 mm | logic | Gate drive. |
-| `OUT_IGN3`, `OUT_IGN4`, `OUT_IGN5` | 0.15 mm | logic | Gate drive. Still below the 0.40 mm class. |
+| `OUT_IGN3` | 0.40 mm | logic | The 3.2 mm In1.Cu run at y = 111.6 is now the class width. |
+| `OUT_IGN4` | 0.15 mm | logic | B.Cu run of 12.5 mm. An `/INJ5` via at (61.9, 108.6) leaves no room to grow it under the 0.40 mm outer ignition clearance. |
+| `OUT_IGN5` | 0.15 mm | logic | The F.Cu run from (58, 94) to (69.5, 94.5) is now 0.35 mm. The 26.2 mm F.Cu run and two ~4 mm runs stay 0.15 mm, against the `/IN_PPS2` via at (74.0, 113.2). |
 | `+5VP` | 0.25 mm | signal / low current | |
 | `GNDA` | 0.20 mm | signal | |
 | Sensors, CAN, VR, EGT | 0.15–0.20 mm | signal | Several new escapes are 0.15 mm for more than 3 mm. |
@@ -72,9 +74,17 @@ Compared with that board (squash `57590d2`, the PR #3 layout):
 | Items not allowed | 37 | 36 |
 | Hole-to-hole | 12 | 12 |
 
+A re-run on KiCad 8.0.9 after the `OUT_IGN3` / `OUT_IGN5` width change matches this table: 0 shorts, 0 crossing tracks, 81 unconnected items, 6 open J30 pads, 33 clearance.
+
 The 46 shorts were harness tracks through module GND fingers and driver pads. Those tracks were deleted and the escape was drawn again around the fingers.
 
-Six header pads are still open. Each one still has its core trace; the pin-field gap next to it is already taken by a neighbor:
+Six header pads are still open. A bounded search, one net at a time, did not find a path that keeps shorts at 0, crossing tracks at 0, and the board's own hole and clearance rules.
+
+Pins 47, 46, 45, 38, and 37 (`IN_HALL3`, `IN_HALL2`, `IN_HALL1`, `VR_MAX9924+`, `EGT−`) all have to cross x ≈ 32.2, the 0.7 mm slot between the outer and inner pad columns. `IN_BUTTON3` already fills that slot on In1.Cu and `IN_BUTTON2` fills it on In2.Cu, from about y = 81 to y = 92. The front-to-outer column gap is 0.2 mm, so a track cannot step sideways around those two verticals. F.Cu and B.Cu are open on the stagger rows y = 84.5 and y = 87.5 only. East of the inner pads the same rows sit inside the 0.40 mm outer keepout of `OUT_IGN4` / `OUT_IGN5` / `OUT_IGN6`, so the track has to change layer in the pocket at about (32.7, 84.5) or (32.7, 87.5). That pocket fits a 0.40 mm via with a 0.20 mm drill. It does not fit a via that meets this board's limits (0.30 mm minimum hole, 0.10 mm minimum annular ring, so 0.50 / 0.30 mm). Each of those two rows can carry one track, and neither row has a legal via, so none of the five pins can leave the header.
+
+Pin 11 `WBO_Un` is closed on the south by the F.Cu `GNDA` bar at y = 139.5 and by the `+12V` / `+12V_RAW` copper on the inner layers. Moving that bar south does open a path. It also lets the F.Cu GND pour reach outer ignition tracks at the pour's 0.20 mm clearance, about 110 new ignition clearance errors. The bar stays where it is.
+
+Post-field `+12V`, `+12V_RAW`, and `GND` were measured for a wider track and for a parallel track on the other layers. The copper beside those runs (vias and pads already at the clearance limit, no free 0.6 mm channel on F.Cu, In2.Cu, or B.Cu) does not allow a wider section. The 0.40 mm neck remains.
 
 | Pin | Net | Core copper still on the board |
 |---|---|---|
@@ -84,8 +94,6 @@ Six header pads are still open. Each one still has its core trace; the pin-field
 | 38 | `VR_MAX9924+` | In1.Cu, about 72.5 mm |
 | 37 | `EGT−` | In1.Cu, about 12.0 mm |
 | 11 | `WBO_Un` | F.Cu, about 7.0 mm |
-
-`IN_HALL2` and `IN_HALL3` do connect if they are routed before their neighbors. On this board those neighbors already occupy the only 0.40 mm slot, so the three were left open together rather than trading which signal wins the slot.
 
 Cavity 1 of 6437288-5 is still unverified: TE returned HTTP 403 for `JPN_CD_6437288-5`.
 

@@ -87,4 +87,15 @@ World placement is rotation 90°, origin (28.2, 138). Pin 1 is the south end of 
 
 ## J30 pads still open on the PCB
 
-None. All 58 signal pins reach another pad on the same net. Pins 4 and 5 (`GND`) tie into the plane. Series widths and the fuse for each high-current channel are in [superseal-60-order.md](superseal-60-order.md). Cavity 1 is still unverified against `JPN_CD_6437288-5` (TE returned HTTP 403).
+Six signal pads do not reach the rest of their net. Pins 4 and 5 (`GND`) tie into the plane. Why each pad stays open, and the series widths, are in [superseal-60-order.md](superseal-60-order.md).
+
+| Pin | Net |
+|---|---|
+| 47 | `IN_HALL3` |
+| 46 | `IN_HALL2` |
+| 45 | `IN_HALL1` |
+| 38 | `VR_MAX9924+` |
+| 37 | `EGT−` |
+| 11 | `WBO_Un` |
+
+Cavity 1 is still unverified against `JPN_CD_6437288-5` (TE returned HTTP 403).

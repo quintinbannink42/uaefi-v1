@@ -78439,7 +78439,7 @@
 	(segment
 		(start 58 94)
 		(end 69.5 94.5)
-		(width 0.15)
+		(width 0.35)
 		(layer "F.Cu")
 		(net 59)
 		(uuid "a7068590-d3af-4cfa-98a7-a3eb33d71a64")
@@ -79663,7 +79663,7 @@
 	(segment
 		(start 69.8 111.6)
 		(end 66.599999 111.6)
-		(width 0.15)
+		(width 0.4)
 		(layer "In1.Cu")
 		(net 61)
 		(uuid "b5e7c02b-ee5a-46a5-b093-e1e245003c35")
