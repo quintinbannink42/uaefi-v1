@@ -37,11 +37,11 @@ Net classes in `uaefi.kicad_pro` set the default width (clearance stays 0.15 mm,
 
 Do not rate a pin at the Superseal “15 A” catalog figure. That number is the contact, not this 1 oz board.
 
-Widths below are the thinnest track longer than about 3 mm after the header moved onto the core. Net classes in the project file are unchanged (`PWR` 2.4, `HC` 1.2, `LS` 1.0, `IGN` 0.40). The 3 mm pin field still cannot hold those classes: a 2.3 mm pad on a 3 mm pitch leaves a 0.7 mm gap, and 0.15 mm clearance makes 0.40 mm the widest track that fits. Outside the field the escape widens where it can. No pin was re-paralleled.
+The new J30 fanout is 0.20 mm, including the run south of the pin field. That is now the series neck on every net that was redrawn from the header. Net classes are unchanged (`PWR` 2.4, `HC` 1.2, `LS` 1.0, `IGN` 0.40) and were not reached on this pass: the 2.3 mm pads on a 3 mm pitch leave a 0.7 mm gap, and the copper past the field is already inside the ignition keepout or against a neighbor. No 0.40 / 0.20 mm via was added. Vias on the new routes are 0.55 mm pad / 0.30 mm drill. The drill file has no 0.20 mm tool.
 
 | Net | Series copper (thinnest run > ~3 mm) | Continuous, 1 oz, 10 °C, external | Fuse note |
 |---|---|---|---|
-| `+12V`, `+12V_RAW`, `GND` | 0.40 mm | ~1.2 A | Class is 2.4 mm. The pin-field gap is the limit. Fuse near 1 A until that neck is a plane or a parallel pin. |
+| `+12V`, `+12V_RAW`, `GND`, and the redrawn J30 nets | 0.20 mm | ~0.8 A | New fanout from the north header. Class widths were not reached on this pass. |
 | `12V_KEY` | 0.24 mm | ~0.9 A | Fuse near 1 A. |
 | `OUT_DC1+`, `OUT_DC1−`, `OUT_INJ4`, `OUT_INJ5`, `OUT_LS3` | 0.50 mm | ~1.5 A | Pulsed. Fuse near 1.5 A continuous. |
 | `OUT_INJ2`, `OUT_INJ3`, `OUT_LS1`, `OUT_LS2`, `OUT_LS4`, `OUT_LS_HOT1` | 0.40 mm | ~1.2 A | Same note. |
@@ -58,42 +58,35 @@ Widths below are the thinnest track longer than about 3 mm after the header move
 
 ## DRC (KiCad 8.0.9)
 
-Every used J30 pad was connected on the previous left-edge board, including both GND pins. Cavity numbers are unchanged. New vias are 0.55 mm pad / 0.30 mm drill. The old socket pin-name legend (186 silkscreen labels) is removed. The only added connector mark is the footprint’s silkscreen “1” at (29.4, 140.6).
+North-edge placement, proto grids removed, header rerouted with the existing via rule (0.55 / 0.30 mm). No new rule area and no 0.20 mm drill.
 
-Compared with that board (squash `57590d2`, the PR #3 layout):
-
-| Check | PR #3 (151.2 × 112.1) | This layout (125 × 100) |
+| Check | PR #3 (151.2 × 112.1) | This layout (101.0 × 115.2) |
 |---|---|---|
 | Shorts | 46 | **0** |
 | Crossing tracks | 0 | **0** |
-| Unconnected items | 19 | 81 |
-| Open J30 pads | 0 | **6** |
-| Clearance | 79 | **33** |
-| Copper-to-edge | 0 | **0** |
+| Unconnected items | 19 | 87 |
+| Open J30 pads | 0 | **1** (`+5VP`, pin 7) |
+| Clearance | 79 | 171 |
 | Solder-mask bridge | 26 | 2 |
 | Items not allowed | 37 | 36 |
 | Hole-to-hole | 12 | 12 |
 
-A re-run on KiCad 8.0.9 after the `OUT_IGN3` / `OUT_IGN5` width change matches this table: 0 shorts, 0 crossing tracks, 81 unconnected items, 6 open J30 pads, 33 clearance.
+159 of the clearance hits are the outer ignition rule (0.40 mm). The new `OUT_IGN*` fanout runs on outer copper inside that keepout. The two solder-mask bridges are the existing `/12V_KEY` via.
 
-The 46 shorts were harness tracks through module GND fingers and driver pads. Those tracks were deleted and the escape was drawn again around the fingers.
+Pin 7 `+5VP` is the open pad. It sits on the south row between `GNDA`, `/WBO_Heater`, and `+12V_RAW`. Those neighbors already occupy the stagger gaps, and a 0.55 / 0.30 mm via does not fit between the 2.3 mm pads. A 0.40 / 0.20 mm via was not added in this pass.
 
-Six header pads are still open. A bounded search, one net at a time, did not find a path that keeps shorts at 0, crossing tracks at 0, and the board's own hole and clearance rules.
+`OUT_IGN1`, `OUT_IGN2`, and `OUT_IGN3` leave the header but their core crossing is only the escape; KiCad still counts the pads as connected through copper the escape touches. `VR_MAX9924+` and `+12V_RAW` are the same kind of partial route and are connected in DRC.
 
-Pins 47, 46, 45, 38, and 37 (`IN_HALL3`, `IN_HALL2`, `IN_HALL1`, `VR_MAX9924+`, `EGT−`) all have to cross x ≈ 32.2, the 0.7 mm slot between the outer and inner pad columns. `IN_BUTTON3` already fills that slot on In1.Cu and `IN_BUTTON2` fills it on In2.Cu, from about y = 81 to y = 92. The front-to-outer column gap is 0.2 mm, so a track cannot step sideways around those two verticals. F.Cu and B.Cu are open on the stagger rows y = 84.5 and y = 87.5 only. East of the inner pads the same rows sit inside the 0.40 mm outer keepout of `OUT_IGN4` / `OUT_IGN5` / `OUT_IGN6`, so the track has to change layer in the pocket at about (32.7, 84.5) or (32.7, 87.5). That pocket fits a 0.40 mm via with a 0.20 mm drill. It does not fit a via that meets this board's limits (0.30 mm minimum hole, 0.10 mm minimum annular ring, so 0.50 / 0.30 mm). Each of those two rows can carry one track, and neither row has a legal via, so none of the five pins can leave the header.
+## Proto parts removed that had a net
 
-Pin 11 `WBO_Un` is closed on the south by the F.Cu `GNDA` bar at y = 139.5 and by the `+12V` / `+12V_RAW` copper on the inner layers. Moving that bar south does open a path. It also lets the F.Cu GND pour reach outer ignition tracks at the pour's 0.20 mm clearance, about 110 new ignition clearance errors. The bar stays where it is.
-
-Post-field `+12V`, `+12V_RAW`, and `GND` were measured for a wider track and for a parallel track on the other layers. The copper beside those runs (vias and pads already at the clearance limit, no free 0.6 mm channel on F.Cu, In2.Cu, or B.Cu) does not allow a wider section. The 0.40 mm neck remains.
-
-| Pin | Net | Core copper still on the board |
+| Ref | Net | Still on the board |
 |---|---|---|
-| 47 | `IN_HALL3` | In1.Cu, about 5.3 mm, not reaching the header |
-| 46 | `IN_HALL2` | B.Cu, about 6.7 mm |
-| 45 | `IN_HALL1` | B.Cu, about 14.7 mm |
-| 38 | `VR_MAX9924+` | In1.Cu, about 72.5 mm |
-| 37 | `EGT−` | In1.Cu, about 12.0 mm |
-| 11 | `WBO_Un` | F.Cu, about 7.0 mm |
+| P1 | `Net-(M7-CANL)` | M7 |
+| P2 | `Net-(M7-CANH)` | M7 |
+| P5 | `/VR_DISCRETE` | M3, M6 |
+| P6 | `/VR_MAX9924` | M4, M6 |
+| G3 | `+12V_RAW`, `+3.3VA`, `+5VA`, `GND` | yes, elsewhere |
+| G4 | `Net-(G4-Pad1)`, `Pad10`, `Pad12`, `Pad13`, `Pad14` | no. These nets existed only on the proto grid |
 
 Cavity 1 of 6437288-5 is still unverified: TE returned HTTP 403 for `JPN_CD_6437288-5`.
 

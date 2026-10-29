@@ -1,3 +1,10 @@
+# J30 turned onto the north edge
+
+* Rotation 180° at (128.25, 62). The shroud that used to point into the board now points off the north edge (y = 44.8). Cavity numbers are unchanged.
+* Outline is **101.0 × 115.2 mm** (x 49–150, y 44.8–160). The left strip is gone.
+* Proto grids `G3`, `G4`, `P1`, `P2`, `P5`, and `P6` are removed. See [docs/superseal-60-order.md](docs/superseal-60-order.md).
+* New header routes use 0.55 / 0.30 mm vias. No 0.20 mm drills. Pin 7 `+5VP` is still open.
+
 # Header pulled onto the race core
 
 * J30 stays TE **6437288-5**, rotation 90°, pin 1 at the south end. Origin moves from (3.5, 138) to **(28.2, 138)**. Cavity numbers are unchanged. The mating shell hangs off x = 25.
