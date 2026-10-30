@@ -29,7 +29,7 @@ There is no spare pin.
 
 ## Pinout
 
-World placement is rotation 90°, origin (3.5, 138). Pin 1 is the south end of the front row, at (3.5, 138). The front row (`ly = 0`) is the outer row, at x = 3.5, and the mating shell hangs off the left edge. The back row (`ly = 8`) is at x = 11.5 and leaves toward the board. Cavity numbers are unchanged. Because pin 1 moved from the north end of the old right-edge header to the south end, world Y order of the cavities is reversed.
+World placement is the north edge, origin (128.25, 62), rotation 180°. The rows run east–west at y = 54 (outer, pins 26–34 and 54–60), 56.5, 59.5 and 62 (board side, pins 1–9 and 35–41). Pin 1 is at (128.25, 62); pins count west along each row. The mating shroud hangs off the north edge. Cavity numbers are unchanged.
 
 ### Front row — power and a few signals
 
@@ -85,6 +85,8 @@ World placement is rotation 90°, origin (3.5, 138). Pin 1 is the south end of t
 | 33 | OUT_DC1− | | |
 | 34 | OUT_DC2+ | | |
 
-## J30 pads still open on the PCB
+## J30 nets still open on the PCB
 
-None. All 58 signal pins reach another pad on the same net. Pins 4 and 5 (`GND`) tie into the plane. Series widths and the fuse for each high-current channel are in [superseal-60-order.md](superseal-60-order.md). Cavity 1 is still unverified against `JPN_CD_6437288-5` (TE returned HTTP 403).
+Every J30 pad has copper on it. Pin 7 (`+5VP`) is now routed with standard 0.55 / 0.30 mm vias. Three nets still do not reach their far end: `OUT_IGN2` (pin 49 → R21), `OUT_IGN3` (pin 50 → R22) and `VR_MAX9924+` (pin 38 → M4). Pins 4 and 5 (`GND`) tie into the pour. Widths and the DRC summary are in [superseal-60-order.md](superseal-60-order.md).
+
+Cavity 1 is still unverified against `JPN_CD_6437288-5` (TE returned HTTP 403).
