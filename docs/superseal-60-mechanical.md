@@ -15,7 +15,7 @@ Pinout: [superseal-60-pinout.md](superseal-60-pinout.md). Current limits: [super
 
 Corners stay a 3.5 mm radius.
 
-The left edge is back at the race core. The extra 15.2 mm is the on-board depth of J30 on the north side. The shroud opening hangs off y = 44.8, so the plug is inserted from outside the board.
+The left edge is back at the race core. The extra 15.2 mm is the on-board depth of J30 on the north side. The width cannot shrink further without a full re-layout: the original race-core parts and routing span x = 49.2–150, and the space freed by the proto grid and the sockets is inside the board, not along an edge. The shroud opening hangs off y = 44.8, so the plug is inserted from outside the board.
 
 ## J30
 

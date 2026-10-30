@@ -1,6 +1,6 @@
 # Ordering the SUPERSEAL 60 harness
 
-Smart-coil ignition only. One TE 6437288-5 on the left edge. Pinout: [superseal-60-pinout.md](superseal-60-pinout.md). Placement: [superseal-60-mechanical.md](superseal-60-mechanical.md).
+Smart-coil ignition only. One TE 6437288-5 on the north edge. Pinout: [superseal-60-pinout.md](superseal-60-pinout.md). Placement: [superseal-60-mechanical.md](superseal-60-mechanical.md).
 
 ## Buy
 
@@ -37,45 +37,43 @@ Net classes in `uaefi.kicad_pro` set the default width (clearance stays 0.15 mm,
 
 Do not rate a pin at the Superseal “15 A” catalog figure. That number is the contact, not this 1 oz board.
 
-The new J30 fanout is 0.20 mm, including the run south of the pin field. That is now the series neck on every net that was redrawn from the header. Net classes are unchanged (`PWR` 2.4, `HC` 1.2, `LS` 1.0, `IGN` 0.40) and were not reached on this pass: the 2.3 mm pads on a 3 mm pitch leave a 0.7 mm gap, and the copper past the field is already inside the ignition keepout or against a neighbor. No 0.40 / 0.20 mm via was added. Vias on the new routes are 0.55 mm pad / 0.30 mm drill. The drill file has no 0.20 mm tool.
+## Track widths after the widening pass
 
-| Net | Series copper (thinnest run > ~3 mm) | Continuous, 1 oz, 10 °C, external | Fuse note |
-|---|---|---|---|
-| `+12V`, `+12V_RAW`, `GND`, and the redrawn J30 nets | 0.20 mm | ~0.8 A | New fanout from the north header. Class widths were not reached on this pass. |
-| `12V_KEY` | 0.24 mm | ~0.9 A | Fuse near 1 A. |
-| `OUT_DC1+`, `OUT_DC1−`, `OUT_INJ4`, `OUT_INJ5`, `OUT_LS3` | 0.50 mm | ~1.5 A | Pulsed. Fuse near 1.5 A continuous. |
-| `OUT_INJ2`, `OUT_INJ3`, `OUT_LS1`, `OUT_LS2`, `OUT_LS4`, `OUT_LS_HOT1` | 0.40 mm | ~1.2 A | Same note. |
-| `OUT_DC2+`, `OUT_DC2−` | 0.25 mm | ~0.9 A | Class is 1.2 mm. Fuse near 1 A. |
-| `OUT_INJ1`, `OUT_INJ6`, `WBO_Heater`, `OUT_LS_HOT2` | 0.24 mm | ~0.9 A | Heater duty is closer to continuous. Fuse the heater near 1 A. |
-| `OUT_IGN6` | 0.25 mm | logic | Smart-coil gate drive. Class is 0.40 mm. |
-| `OUT_IGN1`, `OUT_IGN2` | 0.24 mm | logic | Gate drive. |
-| `OUT_IGN3` | 0.40 mm | logic | The 3.2 mm In1.Cu run at y = 111.6 is now the class width. |
-| `OUT_IGN4` | 0.15 mm | logic | B.Cu run of 12.5 mm. An `/INJ5` via at (61.9, 108.6) leaves no room to grow it under the 0.40 mm outer ignition clearance. |
-| `OUT_IGN5` | 0.15 mm | logic | The F.Cu run from (58, 94) to (69.5, 94.5) is now 0.35 mm. The 26.2 mm F.Cu run and two ~4 mm runs stay 0.15 mm, against the `/IN_PPS2` via at (74.0, 113.2). |
-| `+5VP` | 0.25 mm | signal / low current | |
-| `GNDA` | 0.20 mm | signal | |
-| Sensors, CAN, VR, EGT | 0.15–0.20 mm | signal | Several new escapes are 0.15 mm for more than 3 mm. |
+Every segment of the J30 power, HC, LS and IGN nets was widened toward its class width in 0.05 mm steps, as wide as it can go while keeping 0.15 mm (0.40 mm for IGN on outer copper) to every other net, pad, hole and the board edge. Nothing was rerouted for width, so a segment boxed in by a neighbour keeps its old width. Inside the pin field the neck is set by the 0.7 mm gap between 2.3 mm pads (0.20–0.40 mm). **Class widths are mostly not reached outside the field either.** The board needs a real re-route of the power and output channels before it can carry rated current.
 
-## DRC (KiCad 8.0.9)
+| Net | Class | Length at class width | Thinnest run | Continuous, 1 oz, 10 °C, external |
+|---|---|---|---|---|
+| `+12V` | 2.4 | 2.4 of 213 mm | 0.20 mm | ~0.8 A |
+| `+12V_RAW` | 2.4 | 8.4 of 463 mm | 0.20 mm (main run 0.40 mm) | ~0.8 A |
+| `12V_KEY` | 2.4 | 4.6 of 317 mm | 0.20 mm | ~0.8 A |
+| `OUT_INJ1`–`OUT_INJ6` | 1.2 | 3–11 % of each net | 0.20 mm | ~0.8 A |
+| `OUT_DC1±`, `OUT_DC2±` | 1.2 | 3–26 % | 0.20 mm | ~0.8 A |
+| `OUT_LS_HOT1/2`, `WBO_Heater` | 1.2 | 3–16 % | 0.20 mm | ~0.8 A |
+| `OUT_LS1`–`OUT_LS4` | 1.0 | 2–24 % | 0.20 mm | ~0.8 A |
+| `OUT_IGN1`–`OUT_IGN6` | 0.40 | 27–73 % | 0.20 mm (IGN4, IGN5: 0.15 mm) | logic |
+| `+5VP` | — | — | 0.20 mm neck, 0.30–0.40 mm route | signal |
 
-North-edge placement, proto grids removed, header rerouted with the existing via rule (0.55 / 0.30 mm). No new rule area and no 0.20 mm drill.
+Fuse every output as if it were a 0.20 mm track until these are re-routed.
 
-| Check | PR #3 (151.2 × 112.1) | This layout (101.0 × 115.2) |
+## Vias
+
+Every via is 0.55 / 0.30 mm or larger (499 × 0.55/0.30, 8 × 0.60/0.30, 199 × 0.80/0.40). Pin 7 `+5VP` was routed with standard vias, so **no 0.20 mm drill was added**; the drill file has no 0.20 mm tool and no rule area or custom rule was needed.
+
+## DRC (KiCad 8.0.9, zones refilled)
+
+| Check | Before this pass (c4a9f0b) | Now |
 |---|---|---|
-| Shorts | 46 | **0** |
-| Crossing tracks | 0 | **0** |
-| Unconnected items | 19 | 87 |
-| Open J30 pads | 0 | **1** (`+5VP`, pin 7) |
-| Clearance | 79 | 171 |
-| Solder-mask bridge | 26 | 2 |
-| Items not allowed | 37 | 36 |
-| Hole-to-hole | 12 | 12 |
+| Shorts | 0 | **0** |
+| Unconnected items | 87 | 27 |
+| Open J30 nets | see below | 3 (`OUT_IGN2`, `OUT_IGN3`, `VR_MAX9924+`) |
+| Clearance | 171 (stale zone fill) | 11 (6 of them the 0.40 mm IGN outer rule) |
+| Solder-mask bridge | 2 | 0 |
+| Items not allowed | 36 | 0 |
+| Hole-to-hole | 12 | 12 (vias on top of same-net module pads) |
 
-159 of the clearance hits are the outer ignition rule (0.40 mm). The new `OUT_IGN*` fanout runs on outer copper inside that keepout. The two solder-mask bridges are the existing `/12V_KEY` via.
+The previous "only pin 7 is open" count was wrong: the cloud-agent fanout left 16 nets split into separate copper islands. This pass removed 206 dead track/via islands and reconnected `+5VP` (J30.7 → R1 → M1.V4), `OUT_IGN1`, `OUT_LS1`–`OUT_LS4`, `+12V_RAW` (J30.2, D2–D5 → M1), `VR_MAX9924`, `LS_HOT1/2`, `+3.3VA` and `+5VA`.
 
-Pin 7 `+5VP` is the open pad. It sits on the south row between `GNDA`, `/WBO_Heater`, and `+12V_RAW`. Those neighbors already occupy the stagger gaps, and a 0.55 / 0.30 mm via does not fit between the 2.3 mm pads. A 0.40 / 0.20 mm via was not added in this pass.
-
-`OUT_IGN1`, `OUT_IGN2`, and `OUT_IGN3` leave the header but their core crossing is only the escape; KiCad still counts the pads as connected through copper the escape touches. `VR_MAX9924+` and `+12V_RAW` are the same kind of partial route and are connected in DRC.
+Still open: `OUT_IGN2` (J30.49 → R21), `OUT_IGN3` (J30.50 → R22) and `VR_MAX9924+` (J30.38 → M4). The pad escapes exist but no clear path to the far end fits at 0.20 mm with 0.55 mm vias. 24 small `GND` islands (isolated SMD ground pads such as U7.5, U8.5/7, U10.5/7, C28, C30) do not reach the pour; these were already broken before this pass.
 
 ## Proto parts removed that had a net
 
